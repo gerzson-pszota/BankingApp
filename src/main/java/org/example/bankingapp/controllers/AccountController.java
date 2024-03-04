@@ -51,4 +51,11 @@ public class AccountController {
     AccountDto accountDto = accountService.withdraw(id, request.get("amount"));
     return ResponseEntity.ok(accountDto);
   }
+
+  @DeleteMapping("/{id}/delete")
+  public ResponseEntity<String> delete(@PathVariable Long id) {
+    accountService.deleteAccount(id);
+    return ResponseEntity.ok(
+        "Your account was successfully deleted. We hope to see you again soon!");
+  }
 }

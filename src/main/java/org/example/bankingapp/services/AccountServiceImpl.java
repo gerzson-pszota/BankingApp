@@ -46,7 +46,6 @@ public class AccountServiceImpl implements AccountService {
 
   @Override
   public AccountDto deposit(Long id, Double amount) {
-
     Account account =
         accountRepository
             .findById(id)
@@ -69,5 +68,15 @@ public class AccountServiceImpl implements AccountService {
     } else {
       throw new RuntimeException("Not enough funds.");
     }
+  }
+
+  @Override
+  public void deleteAccount(Long id) {
+    Account account =
+        accountRepository
+            .findById(id)
+            .orElseThrow(() -> new AlreadyExistsException("Account does not exist."));
+
+    accountRepository.deleteById(id);
   }
 }
