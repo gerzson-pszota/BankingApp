@@ -44,8 +44,7 @@ public class AccountServiceImpl implements AccountService {
             .orElseThrow(() -> new AlreadyExistsException("Account does not exist."));
 
     account.setBalance(account.getBalance() + amount);
-    Account savedAccount = accountRepository.save(account);
-    return AccountMapper.mapToAccountDto(savedAccount);
+    return AccountMapper.mapToAccountDto(accountRepository.save(account));
   }
 
   @Override
@@ -57,8 +56,7 @@ public class AccountServiceImpl implements AccountService {
 
     if (amount <= account.getBalance()) {
       account.setBalance(account.getBalance() - amount);
-      Account savedAccount = accountRepository.save(account);
-      return AccountMapper.mapToAccountDto(savedAccount);
+      return AccountMapper.mapToAccountDto(accountRepository.save(account));
     } else {
       throw new RuntimeException("Not enough funds.");
     }
