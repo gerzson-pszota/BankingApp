@@ -13,6 +13,11 @@ public class GlobalExceptionHandler {
     return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
   }
 
+  @ExceptionHandler(DoesNotExistException.class)
+  public ResponseEntity<String> handleDoesNotExistException(AlreadyExistsException e) {
+    return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+  }
+
   @ExceptionHandler(FundsException.class)
   public ResponseEntity<String> handleCredentialException(FundsException e) {
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());

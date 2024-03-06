@@ -1,7 +1,7 @@
 package org.example.bankingapp.services;
 
 import org.example.bankingapp.dtos.AccountDto;
-import org.example.bankingapp.exceptions.AlreadyExistsException;
+import org.example.bankingapp.exceptions.DoesNotExistException;
 import org.example.bankingapp.exceptions.FundsException;
 import org.example.bankingapp.mappers.AccountMapper;
 import org.example.bankingapp.models.Account;
@@ -34,7 +34,7 @@ public class AccountServiceImpl implements AccountService {
     Account account =
         accountRepository
             .findById(id)
-            .orElseThrow(() -> new AlreadyExistsException("Account does not exist."));
+            .orElseThrow(() -> new DoesNotExistException("Account does not exist."));
     return AccountMapper.mapToAccountDto(account);
   }
 
@@ -49,7 +49,7 @@ public class AccountServiceImpl implements AccountService {
     Account account =
         accountRepository
             .findById(id)
-            .orElseThrow(() -> new AlreadyExistsException("Account does not exist."));
+            .orElseThrow(() -> new DoesNotExistException("Account does not exist."));
 
     account.setBalance(account.getBalance() + amount);
     return AccountMapper.mapToAccountDto(accountRepository.save(account));
@@ -60,13 +60,13 @@ public class AccountServiceImpl implements AccountService {
     Account account =
         accountRepository
             .findById(id)
-            .orElseThrow(() -> new FundsException("Account does not exist."));
+            .orElseThrow(() -> new DoesNotExistException("Account does not exist."));
 
     if (amount <= account.getBalance()) {
       account.setBalance(account.getBalance() - amount);
       return AccountMapper.mapToAccountDto(accountRepository.save(account));
     } else {
-      throw new RuntimeException("Not enough funds.");
+      throw new FundsException("Not enough funds.");
     }
   }
 
@@ -75,7 +75,7 @@ public class AccountServiceImpl implements AccountService {
     Account account =
         accountRepository
             .findById(id)
-            .orElseThrow(() -> new AlreadyExistsException("Account does not exist."));
+            .orElseThrow(() -> new DoesNotExistException("Account does not exist."));
 
     accountRepository.deleteById(id);
   }
