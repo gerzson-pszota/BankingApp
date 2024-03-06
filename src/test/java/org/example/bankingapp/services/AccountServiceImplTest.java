@@ -1,7 +1,6 @@
 package org.example.bankingapp.services;
 
 import org.example.bankingapp.dtos.AccountDto;
-import org.example.bankingapp.exceptions.AlreadyExistsException;
 import org.example.bankingapp.exceptions.DoesNotExistException;
 import org.example.bankingapp.exceptions.FundsException;
 import org.example.bankingapp.mappers.AccountMapper;
